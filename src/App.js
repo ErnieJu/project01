@@ -1,10 +1,11 @@
 import { Navbar, NavDropdown, FormControl, Nav, Button, Form, Card, Carousel } from 'react-bootstrap';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Detail from './Detail.js';
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
 import Account from './Account.js';
 import axios from 'axios';
+import Data from './Data';
 
 
 
@@ -16,7 +17,9 @@ function App() {
   let [nameInput,changenameInput] = useState('');
   let [emailInput,changeemailInput] = useState('');
   let [searchInput, changesearchInput] = useState('');
-  let [productData, changeProductData] = useState('');
+  let [productData, changeProductData] = useState(Data);
+
+  useEffect(()=>{axios.get('http://localhost:8081/api/product/join').then((result)=>{ changeProductData([...productData, ...result.data]) }).catch()},[]);
 
   return (
     <div className="App">
@@ -128,16 +131,74 @@ function App() {
 
       <div className="container">
         <div className="row">
-          { 
-            productData.map( (a,i)=>{ 
-              return <Maincard productData={a[i]} i={i} {...axios.get('').then((result)=>{ changeProductData([...productData, ...result.data]) }).catch(()=>{  })}></Maincard>
-             } ) 
-            }
+
+          {
+          productData.map( (a,i)=>{ return <Maincard productData={a[i]} i={i} /> })
+          }
+              
+
+          <div className="col-md-3">
+            <Card style={{ width: '18rem' }}>
+              <Card.Img variant="top" src='img/05.jpg' />
+              <Card.Body>
+                <Card.Title>{productData[0].name}</Card.Title>
+                <Card.Text>
+                  {productData[0].cost} 원
+                </Card.Text>
+                <Link to='/detail'>
+                  <Button variant="primary">Specific</Button>
+                </Link>
+              </Card.Body>
+            </Card>
+          </div>
+
+          <div className="col-md-3">
+            <Card style={{ width: '18rem' }}>
+              <Card.Img variant="top" src='img/06.jpg' />
+              <Card.Body>
+                <Card.Title>Name</Card.Title>
+                <Card.Text>
+                  Cost
+                </Card.Text>
+                <Link to='/detail'>
+                  <Button variant="primary">Specific</Button>
+                </Link>
+              </Card.Body>
+            </Card>
+          </div>
+          <div className="col-md-3">
+            <Card style={{ width: '18rem' }}>
+              <Card.Img variant="top" src='img/07.jpg' />
+              <Card.Body>
+                <Card.Title>Name</Card.Title>
+                <Card.Text>
+                  Cost
+                </Card.Text>
+                <Link to='/detail'>
+                  <Button variant="primary">Specific</Button>
+                </Link>
+              </Card.Body>
+            </Card>
+          </div>
+          <div className="col-md-3">
+            <Card style={{ width: '18rem' }}>
+              <Card.Img variant="top" src='img/08.jpg' />
+              <Card.Body>
+                <Card.Title>Name</Card.Title>
+                <Card.Text>
+                  Cost
+                </Card.Text>
+                <Link to='/detail'>
+                  <Button variant="primary">Specific</Button>
+                </Link>
+              </Card.Body>
+            </Card>
+          </div>
           
 
-          
+          &nbsp;&nbsp;
         </div>
-        <button onClick={ ()=>{ axios.get('').then((result)=>{ changeProductData([...productData, ...result.data]) }).catch(()=>{  }) } }>Show more</button>
+        <button onClick={ ()=>{ axios.get('http://localhost:8081/api/product/join').then((result)=>{ changeProductData([...productData, ...result.data]) }).catch(()=>{  }) } }>Show more</button>
       </div>
     </Route>
 
@@ -266,6 +327,7 @@ function Maincard(props) {
     </div>
   )
 }
+
 
 
 /* 나중에 다시 구현 해볼것*/

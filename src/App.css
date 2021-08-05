@@ -21,10 +21,6 @@
 
 .row {
   margin-top: 50px;
-  border: 0 auto;
-  left: 50%;
-  right: 50%;
-  padding: 0 auto;
 }
 
 /*
@@ -48,6 +44,10 @@
 
 .mb-3 {
   text-align: left;
+}
+
+.container {
+  padding: 50;
 }
 
 .right-solid {

@@ -1,13 +1,34 @@
-/*import { useState } from "react"
+export default [
+    {
+    name : "ProductA",
+    description : "This is the ProductA",
+    cost : 39800,
+    stockQuantity : 3000,
+    imageUrl : "Null"
+    },
 
-let [productData, changeProduct] = useState([]);
+    {
+    name : "ProductB",
+    description : "This is the ProductB",
+    cost : 39800,
+    stockQuantity : 3000,
+    imageUrl : "Null"
+    },
 
-function product (
-    
-)
+    {
+    name : "ProductC",
+    description : "This is the ProductC",
+    cost : 39800,
+    stockQuantity : 3000,
+    imageUrl : "Null"
+    },
 
+    {
+    name : "ProductD",
+    description : "This is the ProductD",
+    cost : 39800,
+    stockQuantity : 3000,
+    imageUrl : "Null"
+    }
 
-
-export default product ();
-
-// export { 변수1, 변수2, ... }*/
+]
