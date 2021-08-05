@@ -1,5 +1,6 @@
 ## Used Skill
 
+<div align=center> 
 <table>
     <thead>
         <tr>
@@ -62,7 +63,7 @@
     </tbody>
 </table>
 
-
+</div>
 
 
 <br/><br/>
