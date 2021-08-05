@@ -1,9 +1,8 @@
 ## Used Skill
 
-<div align=center> 
 <table>
     <thead>
-        <tr>
+        <tr align=center>
             <th>Category</th>
             <th>Name</th>
             <th><center></center>Function</th>
@@ -11,50 +10,50 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr align=center>
             <td rowspan=2>Language</td>
             <td><center>Java</center></td>
             <td><center>Lambda, Stream, Optional 등</center></td>
             <td><center>11</center></td>
         </tr>
-        <tr>
+        <tr align=center>
             <td>JavaScript</td>
             <td>L3  B</td>
             <td>L3  B</td>
         </tr>
-        <tr>
+        <tr align=center>
             <td rowspan="2">Framework</td>
             <td><center>SpringBoot</center></td>
             <td><center>-</center></td>
             <td><center>2.52</center></td>
         </tr>
-        <tr>
+        <tr align=center>
             <td><center>React</center></td>
             <td><center>-</center></td>
             <td><center>2.52</center></td>
         </tr>
-        <tr>
+        <tr align=center>
             <td><center>Build</center></td>
             <td colspan=3"><center>Gradle</center></td>
         </tr>
-        <tr>
+        <tr align=center>
             <td>Database</td>
             <td><center>Mariadb</center></td>
             <td><center>-</center></td>
             <td><center>2.52</center></td>
         </tr>
-        <tr>
+        <tr align=center>
             <td rowspan=2"><center>Library</center></td>
             <td><center>JPA</center></td>
             <td><center>-</center></td>
             <td><center>2.52</center></td>
         </tr>
-        <tr>
+        <tr align=center>
             <td><center>Querydsl</center></td>
             <td><center>-</center></td>
             <td><center>2.52</center></td>
         </tr>
-    <tr>
+        <tr align=center>
             <td><center>Server</center></td>
             <td><center>AWS</center></td>
             <td><center>-</center></td>
@@ -63,7 +62,7 @@
     </tbody>
 </table>
 
-</div>
+
 
 
 <br/><br/>
