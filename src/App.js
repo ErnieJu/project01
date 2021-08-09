@@ -5,7 +5,10 @@ import Detail from './Detail.js';
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
 import Account from './Account.js';
 import axios from 'axios';
-import Data from './Data';
+import Data from './Data.js';
+import Cart from './Cart.js';
+import Blog from './Blog.js'
+import PostWriting from './PostWriting.js';
 
 
 
@@ -36,10 +39,10 @@ function App() {
             navbarScroll
           >
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="#action2">Link</Nav.Link>
+            <Nav.Link href="/detail/1">detail_temp</Nav.Link>
             <NavDropdown title="Link" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
+              <NavDropdown.Item href="/my-cart">Cart_temp</NavDropdown.Item>
+              <NavDropdown.Item href="/blog">Blog</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/my-account">My Account</NavDropdown.Item>
             </NavDropdown>
@@ -74,7 +77,7 @@ function App() {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="img/01.jpg"
+                src="img/1.jpg"
                 alt="First slide"
               />
               <Carousel.Caption>
@@ -86,7 +89,7 @@ function App() {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="img/02.jpg"
+                src="img/2.jpg"
                 alt="Second slide"
               />
 
@@ -99,7 +102,7 @@ function App() {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="img/03.jpg"
+                src="img/3.jpg"
                 alt="Third slide"
               />
 
@@ -112,7 +115,7 @@ function App() {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="img/04.jpg"
+                src="img/4.jpg"
                 alt="Third slide"
               />
 
@@ -132,20 +135,20 @@ function App() {
       <div className="container">
         <div className="row">
 
-          {
+          { /*
           productData.map( (a,i)=>{ return <Maincard productData={a[i]} i={i} /> })
-          }
+          */ }
               
 
           <div className="col-md-3">
             <Card style={{ width: '18rem' }}>
-              <Card.Img variant="top" src='img/05.jpg' />
+              <Card.Img variant="top" src='img/5.jpg' />
               <Card.Body>
                 <Card.Title>{productData[0].name}</Card.Title>
                 <Card.Text>
                   {productData[0].cost} 원
                 </Card.Text>
-                <Link to='/detail'>
+                <Link to='/detail/01'>
                   <Button variant="primary">Specific</Button>
                 </Link>
               </Card.Body>
@@ -154,13 +157,13 @@ function App() {
 
           <div className="col-md-3">
             <Card style={{ width: '18rem' }}>
-              <Card.Img variant="top" src='img/06.jpg' />
+              <Card.Img variant="top" src='img/6.jpg' />
               <Card.Body>
-                <Card.Title>Name</Card.Title>
+                <Card.Title>{productData[1].name}</Card.Title>
                 <Card.Text>
-                  Cost
+                  {productData[1].cost}
                 </Card.Text>
-                <Link to='/detail'>
+                <Link to='/detail/02'>
                   <Button variant="primary">Specific</Button>
                 </Link>
               </Card.Body>
@@ -168,13 +171,13 @@ function App() {
           </div>
           <div className="col-md-3">
             <Card style={{ width: '18rem' }}>
-              <Card.Img variant="top" src='img/07.jpg' />
+              <Card.Img variant="top" src='img/7.jpg' />
               <Card.Body>
-                <Card.Title>Name</Card.Title>
+                <Card.Title>{productData[2].name}</Card.Title>
                 <Card.Text>
-                  Cost
+                  {productData[2].cost}
                 </Card.Text>
-                <Link to='/detail'>
+                <Link to='/detail/03'>
                   <Button variant="primary">Specific</Button>
                 </Link>
               </Card.Body>
@@ -182,13 +185,13 @@ function App() {
           </div>
           <div className="col-md-3">
             <Card style={{ width: '18rem' }}>
-              <Card.Img variant="top" src='img/08.jpg' />
+              <Card.Img variant="top" src='img/8.jpg' />
               <Card.Body>
-                <Card.Title>Name</Card.Title>
+                <Card.Title>{productData[3].name}</Card.Title>
                 <Card.Text>
-                  Cost
+                  {productData[3].cost}
                 </Card.Text>
-                <Link to='/detail'>
+                <Link to='/detail/04'>
                   <Button variant="primary">Specific</Button>
                 </Link>
               </Card.Body>
@@ -298,7 +301,23 @@ function App() {
       </div>
     </Route>
 
+    { /* 카트 */}
 
+    <Route exact path='/my-cart'>
+      <Cart productData={productData}></Cart>
+
+    </Route>
+
+    { /* 게시판 */ }
+
+    <Route exact path='/blog'>
+      <Blog></Blog>
+    </Route>
+
+    { /* 글쓰기 */ }
+    <Route exact path='/new-post'>
+      <PostWriting></PostWriting>
+    </Route>
 
     </div>
 
@@ -308,7 +327,7 @@ function App() {
 
 { /* 메인 화면 상품 카드 */ }
 
-
+/*
 function Maincard(props) {
   return (
     <div className="col-md-3">
@@ -327,7 +346,7 @@ function Maincard(props) {
     </div>
   )
 }
-
+*/
 
 
 /* 나중에 다시 구현 해볼것*/

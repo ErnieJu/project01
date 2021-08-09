@@ -89,6 +89,19 @@
   left: 10px;
 }
 
+.cart_middle {
+  border-style: solid;
+}
+
+.cart_back {
+  background-color: rgb(224, 223, 223);
+  border-radius: 15px;
+}
+
+.temp {
+  margin-top: 100px;
+}
+
 .subProduct {
   color: black;
 }

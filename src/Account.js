@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './App.css';
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
 
-function account() {
+function Account() {
     //let [modal, changeModal] = useState(true);
 
 
@@ -43,7 +43,7 @@ function account() {
                     <Col xs={6}>
                         12345678912345679
                     </Col>
-                    <Col>
+                    <Col xs={2}>
                         3216549786321654978
                     </Col>
                 </Row>
@@ -65,4 +65,4 @@ function Modal() {
 }
 
 
-  export default account;
+  export default Account;
