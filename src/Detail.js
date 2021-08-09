@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-import { Tab, Tabs, Form, Button } from 'react-bootstrap';
+import { Link, useHistory, useParams } from 'react-router-dom';
+import { Tab, Tabs, Form, Button, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import Qnadata from './Qnadata.js';
 
 
 function Detail(props){
@@ -14,10 +15,13 @@ function Detail(props){
   let num = detailProduct.id;
   let [title, changeTitle] = useState('');
   let [content, changeContent] = useState('');
+  let [modal, changeModal] = useState(false);
+  let [qnaData, changeqnaData] = useState(Qnadata);
   
 
     return (
       <div className="container">
+        { /* 디테일 위에 페이지 */}
         <div className="row">
           <div className="col-md-6">
             <img src={'/img/' + (num + 5) + '.jpg'} width="100%" />
@@ -53,32 +57,22 @@ function Detail(props){
             </h4>
           </Tab>
           <Tab eventKey="home" title="Q&A">
-            <h4>
-              <Form>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" onChange={(e)=>{ changeTitle(`${e.target.value}`) }}>
-                  <Form.Label>제목</Form.Label>
-                  <Form.Control type="email" placeholder="제목을 입력하세요" />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1" onChange={(e)=>{ changeContent(`${e.target.value}`) }}>
-                  <Form.Label>내용</Form.Label>
-                  <Form.Control as="textarea" rows={3} />
-                </Form.Group>
-              </Form>
-              <Button onClick={()=>{ 
-                axios.post('/user', {
-                  title: title,
-                  content: content
-                })
-                .then(function (response) {
-                  console.log(title);
-                  console.log(content);
-                })
-                .catch(function (error) {
-                  console.log(title);
-                  console.log(content);
-                });
-              }}>전송</Button>
-            </h4>
+            <Container className='qnaList'>
+              <Row className='qnacategory'>
+                <Col>글번호</Col>
+                <Col xs={6}>글제목</Col>
+                <Col>글쓴놈</Col>
+                <Col>시간</Col>
+                <Col xs={1}>조회수</Col>
+              </Row>
+            </Container>
+            {
+              qnaData.map((a,i)=>{ return <QNA qnaData={qnaData[i]} i={i} key={i}></QNA> })
+            }
+            <h1> </h1>
+            &nbsp;
+            <p> </p>
+            <Button onClick={ ()=>{ changeModal(!modal) } } className='detailQnA'>질문 입력</Button>
           </Tab>
           <Tab eventKey="contact" title="Review">
             <div>{/* 제목 */}</div>
@@ -87,9 +81,65 @@ function Detail(props){
           </Tab>
         </Tabs>
 
+        {
+          modal === true
+          ? <Modal title={title} content={content} changeTitle={changeTitle} changeContent={changeContent}></Modal>
+          : null
+        }
+
+
       </div>  
     )
   };
+
+  function Modal(props) {
+
+    return (
+      <h4>
+        <Form>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" onChange={(e)=>{ props.changeTitle(`${e.target.value}`) }}>
+            <Form.Label>제목</Form.Label>
+            <Form.Control type="email" placeholder="제목을 입력하세요" />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1" onChange={(e)=>{ props.changeContent(`${e.target.value}`) }}>
+            <Form.Label>내용</Form.Label>
+            <Form.Control as="textarea" rows={3} />
+          </Form.Group>
+        </Form>
+        <Button onClick={()=>{ 
+          axios.post('/user', {
+            title: props.title,
+            content: props.content
+          })
+          .then(function (response) {
+            console.log(props.title);
+            console.log(props.content);
+          })
+          .catch(function (error) {
+            console.log(props.title);
+            console.log(props.content);
+          });
+        }}>전송</Button>
+      </h4>
+    )
+  }
+
+  function QNA(props) {
+
+    return (
+      <Container>
+        <Link to='/' className='noUnderline'>
+          <Row onClick={ ()=>{  } } className='qnabox'>
+            <Col>{props.qnaData.id}</Col>
+            <Col xs={6}>{props.qnaData.title}</Col>
+            <Col>{props.qnaData.userId}</Col>
+            <Col>{props.qnaData.content}</Col>
+            <Col xs={1}>{props.qnaData.viewCount}</Col>
+          </Row>
+        </Link>
+      </Container>
+    )
+  }
 
 
   export default Detail;
