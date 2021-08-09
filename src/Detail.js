@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { Tab, Tabs, Form, Button, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
-import Qnadata from './Qnadata.js';
+
 
 
 function Detail(props){
@@ -16,8 +16,9 @@ function Detail(props){
   let [title, changeTitle] = useState('');
   let [content, changeContent] = useState('');
   let [modal, changeModal] = useState(false);
-  let [qnaData, changeqnaData] = useState(Qnadata);
+  let qnaData = props.qnaData;
   
+
 
     return (
       <div className="container">
@@ -73,6 +74,9 @@ function Detail(props){
             &nbsp;
             <p> </p>
             <Button onClick={ ()=>{ changeModal(!modal) } } className='detailQnA'>질문 입력</Button>
+            &nbsp;
+            <h1>  </h1>
+            &nbsp;
           </Tab>
           <Tab eventKey="contact" title="Review">
             <div>{/* 제목 */}</div>
@@ -81,9 +85,11 @@ function Detail(props){
           </Tab>
         </Tabs>
 
+        
+        
         {
           modal === true
-          ? <Modal title={title} content={content} changeTitle={changeTitle} changeContent={changeContent}></Modal>
+          ? <Modal title={title} content={content} changeTitle={changeTitle} changeContent={changeContent} detailProduct={detailProduct}></Modal>
           : null
         }
 
@@ -95,8 +101,19 @@ function Detail(props){
   function Modal(props) {
 
     return (
-      <h4>
+      <h4 className='qnaInput'>
         <Form>
+          <p className='qnaCreate'>
+            {props.detailProduct.name}에 대한 문의 사항을 입력해 주세요.
+          </p>
+          <div className='littleAlert'>
+            <p className='qnaAlert'>
+              해당 제품의 판매자가 문의사항을 확인하는 즉시 답변을 제공할 것입니다.
+            </p>
+            <p className='qnaAlert'>
+              답변 회신까지 평균 2~3일이 소요됩니다.
+            </p>
+          </div>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" onChange={(e)=>{ props.changeTitle(`${e.target.value}`) }}>
             <Form.Label>제목</Form.Label>
             <Form.Control type="email" placeholder="제목을 입력하세요" />
@@ -128,7 +145,7 @@ function Detail(props){
 
     return (
       <Container>
-        <Link to='/' className='noUnderline'>
+        <Link to={('/qna-specific/' + props.qnaData.id)} className='noUnderline'>
           <Row onClick={ ()=>{  } } className='qnabox'>
             <Col>{props.qnaData.id}</Col>
             <Col xs={6}>{props.qnaData.title}</Col>

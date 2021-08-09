@@ -7,6 +7,8 @@ import Account from './Account.js';
 import axios from 'axios';
 import Data from './Data.js';
 import Cart from './Cart.js';
+import QnaDetail from './QnaDetail.js';
+import Qnadata from './Qnadata.js';
 
 
 function App() {
@@ -18,6 +20,7 @@ function App() {
   let [email,changeemail] = useState('');
   let [searchInput, changesearchInput] = useState('');
   let [productData, changeProductData] = useState(Data);
+  let [qnaData, changeqnaData] = useState(Qnadata);
 
   useEffect(()=>{axios.get('http://localhost:8081/api/product/join').then((result)=>{ changeProductData([...productData, ...result.data]) }).catch()},[]);
 
@@ -236,7 +239,7 @@ function App() {
           </Form.Group>
 
           <Button variant="primary" type="submit" onClick={()=>{ history.push('/') 
-            {/*
+            
               axios.post('/user', {
               username: username,
               password: password
@@ -249,7 +252,7 @@ function App() {
               console.log(username);
               console.log(password);
             });
-          */}
+          
             }}>
             Submit
           </Button>
@@ -264,7 +267,12 @@ function App() {
     { /* 상품 상세설명 페이지 */}
 
     <Route path={'/detail/:id'}>
-      <Detail productData={productData}></Detail>
+      <Detail productData={productData} qnaData={qnaData}></Detail>
+    </Route>
+
+    {/* QNA 상세설명 페이지 */}
+    <Route path={'/qna-specific/:id'}>
+      <QnaDetail productData={productData} qnaData={qnaData}></QnaDetail>
     </Route>
 
     { /* 마이 어카운트 페이지 */}
