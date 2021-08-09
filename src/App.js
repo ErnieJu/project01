@@ -1,4 +1,4 @@
-import { Navbar, NavDropdown, FormControl, Nav, Button, Form, Card, Carousel } from 'react-bootstrap';
+import { Navbar, NavDropdown, FormControl, Nav, Button, Form, Card, Carousel, Accordion } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Detail from './Detail.js';
@@ -7,18 +7,15 @@ import Account from './Account.js';
 import axios from 'axios';
 import Data from './Data.js';
 import Cart from './Cart.js';
-import Blog from './Blog.js'
-import PostWriting from './PostWriting.js';
-
 
 
 function App() {
 
   let history = useHistory();
-  let [idInput,changeidInput] = useState('');
-  let [pwInput,changepwInput] = useState('');
-  let [nameInput,changenameInput] = useState('');
-  let [emailInput,changeemailInput] = useState('');
+  let [username,changeusername] = useState('');
+  let [password,changepassword] = useState('');
+  let [name,changename] = useState('');
+  let [email,changeemail] = useState('');
   let [searchInput, changesearchInput] = useState('');
   let [productData, changeProductData] = useState(Data);
 
@@ -50,7 +47,7 @@ function App() {
           &nbsp;
           &nbsp;
          
-          <Form className="d-flex" onChange={(e)=>{changesearchInput(e.target.value)}} searchInput={searchInput}>
+          <Form className="d-flex" onChange={(e)=>{changesearchInput(`${e.target.value}`)}} searchInput={searchInput}>
             <FormControl
               type="search"
               placeholder="Search"
@@ -216,13 +213,13 @@ function App() {
         <Form>
           <Form.Group className="mb-3" controlId="formBasicID" >
             <Form.Label>ID</Form.Label>
-            <Form.Control type="id" placeholder="ID" onChange={ (e)=>{ changeidInput(e.target.value) } } idInput={idInput}/>
+            <Form.Control type="id" placeholder="ID" onChange={ (e)=>{ changeusername(`${e.target.value}`) } } username={username}/>
           </Form.Group>
           
           { /*
           <Form.Group className="mb-3" controlId="formBasicID" >
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="id" placeholder="Enter email" onChange={ (e)=>{ changeidInput(e.target.value) } } idInput={idInput}/>
+            <Form.Control type="id" placeholder="Enter email" onChange={ (e)=>{ changeusername(e.target.value) } } username={username}/>
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
             </Form.Text>
@@ -231,14 +228,29 @@ function App() {
 
           <Form.Group className="mb-3" controlId="formBasicPassword" >
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" onChange={ (e)=>{ changepwInput(e.target.value) } } pwInput={pwInput}/>
+            <Form.Control type="password" placeholder="Password" onChange={ (e)=>{ changepassword(`${e.target.value}`) } } password={password}/>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Check type="checkbox" label="Remember me" />
           </Form.Group>
 
-          <Button variant="primary" type="submit" onClick={()=>{ history.push('/') }}>
+          <Button variant="primary" type="submit" onClick={()=>{ history.push('/') 
+            {/*
+              axios.post('/user', {
+              username: username,
+              password: password
+            })
+            .then(function (response) {
+              console.log(username);
+              console.log(password);
+            })
+            .catch(function (error) {
+              console.log(username);
+              console.log(password);
+            });
+          */}
+            }}>
             Submit
           </Button>
           &nbsp; &nbsp;
@@ -272,25 +284,46 @@ function App() {
 
           <Form.Group className="mb-3" controlId="formBasicID" >
             <Form.Label>ID</Form.Label>
-            <Form.Control type="id" placeholder="ID" onChange={ (e)=>{ changeidInput(e.target.value) } } idInput={idInput}/>
+            <Form.Control type="id" placeholder="ID" onChange={ (e)=>{ changeusername(`${e.target.value}`) } } username={username}/>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword" >
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" onChange={ (e)=>{ changepwInput(e.target.value) } } pwInput={pwInput}/>
+            <Form.Control type="password" placeholder="Password" onChange={ (e)=>{ changepassword(`${e.target.value}`) } } password={password}/>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicEmail" >
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" onChange={ (e)=>{ changeemailInput(e.target.value) } } emailInput={emailInput}/>
+            <Form.Control type="email" placeholder="Enter email" onChange={ (e)=>{ changeemail(`${e.target.value}`) } } email={email}/>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicName" >
             <Form.Label>Name</Form.Label>
-            <Form.Control type="name" placeholder="Enter your Name" onChange={ (e)=>{ changenameInput(e.target.value) } } nameInput={nameInput}/>
+            <Form.Control type="name" placeholder="Enter your Name" onChange={ (e)=>{ changename(`${e.target.value}`) } } name={name}/>
           </Form.Group>
 
-          <Button variant="primary" type="submit" onClick={()=>{ history.push('/') }}>
+          <Button variant="primary" type="submit" onClick={()=>{ history.push('/') 
+            {/*
+              axios.post('/user', {
+              username: username,
+              password: password,
+              email : email,
+              name : name
+            })
+            .then(function (response) {
+              console.log(username);
+              console.log(password);
+              console.log(email);
+              console.log(name);
+            })
+            .catch(function (error) {
+              console.log(username);
+              console.log(password);
+              console.log(email);
+              console.log(name);
+            });
+          */}
+        }}>
             Submit
           </Button>
           &nbsp; &nbsp;
@@ -305,19 +338,11 @@ function App() {
 
     <Route exact path='/my-cart'>
       <Cart productData={productData}></Cart>
-
     </Route>
 
-    { /* 게시판 */ }
 
-    <Route exact path='/blog'>
-      <Blog></Blog>
-    </Route>
 
-    { /* 글쓰기 */ }
-    <Route exact path='/new-post'>
-      <PostWriting></PostWriting>
-    </Route>
+    
 
     </div>
 
@@ -347,31 +372,6 @@ function Maincard(props) {
   )
 }
 */
-
-
-/* 나중에 다시 구현 해볼것*/
-
-/*
-function LoginSubmit(props){
-  let sendId = [...props.idInput];
-  let sendPw = [...props.pwInput];
-  return (
-    props.history.push('/')
-  )
-}
-
-function NewaccountSubmit(props){
-  let sendId = [...props.idInput];
-  let sendPw = [...props.pwInput];
-  let sendName = [...props.nameInput];
-  let sendEmail = [...props.emailInput];
-  return (
-    props.history.push('/')
-  )
-}
-
-*/
-
 
 
 export default App;

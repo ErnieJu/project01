@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { Col, Container, Row, Button, Tab, Tabs } from 'react-bootstrap';
+import { Tab, Tabs, Form, Button } from 'react-bootstrap';
+import axios from 'axios';
+
 
 function Detail(props){
   let {id} = useParams();
@@ -10,6 +12,9 @@ function Detail(props){
   });
 
   let num = detailProduct.id;
+  let [title, changeTitle] = useState('');
+  let [content, changeContent] = useState('');
+  
 
     return (
       <div className="container">
@@ -40,20 +45,45 @@ function Detail(props){
         &nbsp;
 
         <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
-          <Tab eventKey="home" title="Detail">
+          <Tab eventKey="profile" title="Detail">
             <h4 className="pt-5">
-              {detailProduct.description}
+              <img src={'/img/' + (num + 5) + '.jpg'} width="100%" className="detailImg"></img>
+              <h4>{detailProduct.description}</h4>
+              <p className="productDescription">"This will be replaced by specific detail of the product selected."</p>
             </h4>
           </Tab>
-          <Tab eventKey="profile" title="What is this?">
+          <Tab eventKey="home" title="Q&A">
             <h4>
-              이건 뭘까?
+              <Form>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" onChange={(e)=>{ changeTitle(`${e.target.value}`) }}>
+                  <Form.Label>제목</Form.Label>
+                  <Form.Control type="email" placeholder="제목을 입력하세요" />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1" onChange={(e)=>{ changeContent(`${e.target.value}`) }}>
+                  <Form.Label>내용</Form.Label>
+                  <Form.Control as="textarea" rows={3} />
+                </Form.Group>
+              </Form>
+              <Button onClick={()=>{ 
+                axios.post('/user', {
+                  title: title,
+                  content: content
+                })
+                .then(function (response) {
+                  console.log(title);
+                  console.log(content);
+                })
+                .catch(function (error) {
+                  console.log(title);
+                  console.log(content);
+                });
+              }}>전송</Button>
             </h4>
           </Tab>
           <Tab eventKey="contact" title="Review">
-            <h4>
-              리뷰?
-            </h4>
+            <div>{/* 제목 */}</div>
+            <h1>{/* 내용 */}</h1>
+            <p>{/* 작성자, 날짜 */}</p>
           </Tab>
         </Tabs>
 
