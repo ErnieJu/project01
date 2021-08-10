@@ -116,17 +116,15 @@ function Detail(props){
             <div>{/* 제목 */}</div>
             <h1>{/* 내용 */}</h1>
             <p>{/* 작성자, 날짜 */}</p>
+            <p>준비중입니다.</p>
           </Tab>
         </Tabs>
 
-        
-        
         {
           modal === true
           ? <Modal title={title} content={content} changeTitle={changeTitle} changeContent={changeContent} detailProduct={detailProduct}></Modal>
           : null
         }
-
 
       </div>  
     )
