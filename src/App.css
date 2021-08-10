@@ -132,6 +132,23 @@
   border-bottom-width: 1px;
 }
 
+.paginationButtons {
+  width: 80%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  
+}
+
+.paginationButtons a {
+  padding :10px;
+  margin: 1px;
+  border: 1px solid #646464;
+  color:#646464;
+  cursor: pointer;
+}
+
 .pignis {
   margin: 0px 0px 0px;
   width: 100%;
