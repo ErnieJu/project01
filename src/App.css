@@ -149,6 +149,16 @@
   cursor: pointer;
 }
 
+.paginationButtons a:hover {
+  color: white;
+  background-color: #646464;
+}
+
+.paginationActive a {
+  color: white;
+  background-color: #646464;
+}
+
 .pignis {
   margin: 0px 0px 0px;
   width: 100%;
