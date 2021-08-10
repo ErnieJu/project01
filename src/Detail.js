@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { Tab, Tabs, Form, Button, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
-
+import ReactPaginate from 'react-paginate';
 
 
 function Detail(props){
@@ -17,8 +17,35 @@ function Detail(props){
   let [content, changeContent] = useState('');
   let [modal, changeModal] = useState(false);
   let qnaData = props.qnaData;
-  
 
+  const [qnas, setQnas] = useState(qnaData.slice(0,50));
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const qnasPerPage = 5;
+  const qnaVisit = pageNumber * qnasPerPage;
+
+  const showQna = qnas
+  .slice(qnaVisit, qnaVisit + qnasPerPage)
+  .map((qnas) => {
+    return (
+      <Container qnaData={qnaData} detailProduct={detailProduct}>
+        <Link to={('/qna-specific/' + qnas.id)} className='noUnderline' qnaNum={qnas}>
+          <Row onClick={ ()=>{  } } className='qnabox'>
+            <Col>{qnas.id}</Col>
+            <Col xs={6}>{qnas.title}</Col>
+            <Col>{qnas.userUniqueId}</Col>
+            <Col>{qnas.content}</Col>
+            <Col xs={1}>{qnas.viewCount}</Col>
+          </Row>
+        </Link>
+      </Container>
+      );
+    });
+
+    const pageCount = Math.ceil(qnas.length / qnasPerPage);
+    const changePage = ({selected}) => {
+      setPageNumber(selected)
+    };
 
     return (
       <div className="container">
@@ -67,16 +94,23 @@ function Detail(props){
                 <Col xs={1}>조회수</Col>
               </Row>
             </Container>
-            {
-              qnaData.map((a,i)=>{ return <QNA qnaData={qnaData[i]} i={i} key={i}></QNA> })
-            }
-            <h1> </h1>
+              {showQna}
+            <h1></h1>
             &nbsp;
             <p> </p>
             <Button onClick={ ()=>{ changeModal(!modal) } } className='detailQnA'>질문 입력</Button>
             &nbsp;
-            <h1>  </h1>
             &nbsp;
+            <ReactPaginate
+              previousLabel={"<"}
+              nextLabel={">"}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName={"paginationButtons"}
+              previousLinkClassName={"PreviousButton"}
+              nextLinkClassName={"nextButton"}
+              activeClassName={"activeButton"}
+            />
           </Tab>
           <Tab eventKey="contact" title="Review">
             <div>{/* 제목 */}</div>
@@ -140,23 +174,5 @@ function Detail(props){
       </h4>
     )
   }
-
-  function QNA(props) {
-
-    return (
-      <Container>
-        <Link to={('/qna-specific/' + props.qnaData.id)} className='noUnderline'>
-          <Row onClick={ ()=>{  } } className='qnabox'>
-            <Col>{props.qnaData.id}</Col>
-            <Col xs={6}>{props.qnaData.title}</Col>
-            <Col>{props.qnaData.userId}</Col>
-            <Col>{props.qnaData.content}</Col>
-            <Col xs={1}>{props.qnaData.viewCount}</Col>
-          </Row>
-        </Link>
-      </Container>
-    )
-  }
-
 
   export default Detail;

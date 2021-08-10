@@ -1,43 +1,51 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Row, Col, Container, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 
 
 
 function QnaDetail(props) {
-  let [title, changeTitle] = useState('');
-  let [content, changeContent] = useState('');
+  let {id} = useParams();
+  let [title, changeTitle] = useState(props.qnaData[id-1].title);
+  let [content, changeContent] = useState(props.qnaData[id-1].content);
+  let [viewCount, changeviewCount] = useState(props.qnaData[id-1].viewCount);
+  let [userUniqueId, changeuserUniqueId] = useState(props.qnaData[id-1].userUniqueId);
   let history = useHistory();
+
   return (
-    <h4 className='specificrQnaInput'>
-      <Form>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" onChange={(e)=>{ changeTitle(`${e.target.value}`) }}>
-        <Form.Label>제목</Form.Label>
-        <Form.Control type="email" placeholder="제목을 입력하세요" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1" onChange={(e)=>{ changeContent(`${e.target.value}`) }}>
-        <Form.Label>내용</Form.Label>
-        <Form.Control as="textarea" rows={3} />
-      </Form.Group>
-    </Form>
-    <Button onClick={()=>{ 
-      axios.post('/user', {
-        title: title,
-        content: content
-      })
-      .then(function (response) {
-        console.log(title);
-        console.log(content);
-      })
-      .catch(function (error) {
-        console.log(title);
-        console.log(content);
-      });
-    }}>전송</Button>
-    &nbsp;
-    <Button onClick={ ()=>{ history.goBack(); } }>뒤로 가기</Button>
-  </h4>
+    <div>
+      
+      <h4 className='specificQnaInput'>
+        <Container>
+          <Row className='qnatitle'>
+            <Col>{title}</Col>
+          </Row>
+          <Row className='smallText'>
+            <Col xs={3}>작성자: {userUniqueId} | 작성일: 2016-02-07</Col>
+            <Col></Col>
+            <Col xs={1}>조회수: {viewCount}</Col>
+            <Col xs={1}>글번호: {id}</Col>
+          </Row>
+          <Row>
+            <Col className='qnaContent'>
+              문의{content},
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer luctus, ante lacinia dignissim commodo, arcu erat porta lacus, 
+              eget viverra erat est quis orci. Etiam tempor, erat non hendrerit ullamcorper, nunc ex lacinia lectus, et vestibulum eros justo ac tellus. 
+              Integer vel gravida mauris, ut commodo est. Nunc pharetra sapien eu dolor feugiat venenatis. Integer eget dui quis ex auctor scelerisque. 
+            </Col>
+          </Row>
+          <Row className='underLine'></Row>
+        </Container>
+        &nbsp;
+        <p></p>
+        <Button onClick={ ()=>{ history.goBack(); } }>뒤로 가기</Button>
+      </h4>
+
+      <h4>
+
+      </h4>
+    </div>
   )
 }
 

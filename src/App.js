@@ -21,6 +21,7 @@ function App() {
   let [searchInput, changesearchInput] = useState('');
   let [productData, changeProductData] = useState(Data);
   let [qnaData, changeqnaData] = useState(Qnadata);
+  
 
   useEffect(()=>{axios.get('http://localhost:8081/api/product/join').then((result)=>{ changeProductData([...productData, ...result.data]) }).catch()},[]);
 
@@ -271,6 +272,7 @@ function App() {
     </Route>
 
     {/* QNA 상세설명 페이지 */}
+
     <Route path={'/qna-specific/:id'}>
       <QnaDetail productData={productData} qnaData={qnaData}></QnaDetail>
     </Route>
