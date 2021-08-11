@@ -2,18 +2,20 @@ import { Navbar, NavDropdown, FormControl, Nav, Button, Form, Card, Carousel, Ac
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Detail from './Detail.js';
-import { Link, Route, Switch, useHistory } from 'react-router-dom';
+import { Link, Route, Switch, useHistory, useParams } from 'react-router-dom';
 import Account from './Account.js';
 import axios from 'axios';
 import Data from './Data.js';
 import Cart from './Cart.js';
 import QnaDetail from './QnaDetail.js';
 import Qnadata from './Qnadata.js';
+import Userdata from './Userdata';
 
 
 function App() {
 
   let history = useHistory();
+  let [usrDta, changeusrDta] = useState(Userdata);
   let [username,changeusername] = useState('');
   let [password,changepassword] = useState('');
   let [name,changename] = useState('');
@@ -21,6 +23,8 @@ function App() {
   let [searchInput, changesearchInput] = useState('');
   let [productData, changeProductData] = useState(Data);
   let [qnaData, changeqnaData] = useState(Qnadata);
+
+  
   
 
   useEffect(()=>{axios.get('http://localhost:8081/api/product/join').then((result)=>{ changeProductData([...productData, ...result.data]) }).catch()},[]);
@@ -219,16 +223,6 @@ function App() {
             <Form.Label>ID</Form.Label>
             <Form.Control type="id" placeholder="ID" onChange={ (e)=>{ changeusername(`${e.target.value}`) } } username={username}/>
           </Form.Group>
-          
-          { /*
-          <Form.Group className="mb-3" controlId="formBasicID" >
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="id" placeholder="Enter email" onChange={ (e)=>{ changeusername(e.target.value) } } username={username}/>
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
-          </Form.Group>
-          */ }
 
           <Form.Group className="mb-3" controlId="formBasicPassword" >
             <Form.Label>Password</Form.Label>
@@ -280,7 +274,7 @@ function App() {
     { /* 마이 어카운트 페이지 */}
 
     <Route exact path='/my-account'>
-      <Account></Account>
+      <Account usrDta={usrDta}></Account>
     </Route>
 
     { /* 회원가입 페이지 */ }
