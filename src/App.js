@@ -27,7 +27,13 @@ function App() {
   
   
 
-  useEffect(()=>{axios.get('http://localhost:8081/api/product/join').then((result)=>{ changeProductData([...productData, ...result.data]) }).catch()},[]);
+  const axios = require("axios");
+  useEffect(()=>{axios.get('http://localhost:8080/api/product/findAll')
+                  .then(({ data })=>{ 
+                    changeProductData(data) 
+                  
+                  })
+                    .catch()},[]);
 
   return (
     <div className="App">
