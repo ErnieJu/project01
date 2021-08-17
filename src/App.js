@@ -10,7 +10,7 @@ import Cart from './Cart.js';
 import QnaDetail from './QnaDetail.js';
 import Qnadata from './Qnadata.js';
 import Userdata from './Userdata';
-import Search from './Search.js'
+import SearchRst from './SearchRst.js'
 
 
 function App() {
@@ -53,7 +53,7 @@ function App() {
             <Nav.Link href="/search-result">search_temp</Nav.Link>
             <NavDropdown title="Link" id="navbarScrollingDropdown">
               <NavDropdown.Item href="/my-cart">Cart_temp</NavDropdown.Item>
-              <NavDropdown.Item href="/blog">Blog</NavDropdown.Item>
+              <NavDropdown.Item href="/blog">TestFunction</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/my-account" >My Account</NavDropdown.Item>
             </NavDropdown>
@@ -364,7 +364,7 @@ function App() {
     { /* 검색기능 */}
 
     <Route exact path='/search-result'>
-      <Search searchInput={searchInput}></Search>
+      <SearchRst searchInput={searchInput}></SearchRst>
     </Route>
 
 
