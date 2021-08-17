@@ -69,10 +69,19 @@ function App() {
               aria-label="Search"
             />
             <Link to='/search-result'>
-              <Button variant="outline-success">Search</Button>
+              <Button variant="outline-success" onClick={ ()=>{ 
+                axios.post('/user', {
+                  searchInput:searchInput
+                })
+                .then(function(response) {
+                  console.log(searchInput)
+                })
+                .catch(function(response) {
+                  console.log('failed')
+                });
+              } }>Search</Button>
             </Link>
           </Form>
-
           <Nav>
             <Nav.Link href="/log-in">
               Login
@@ -81,142 +90,142 @@ function App() {
         </Navbar.Collapse>
       </Navbar>
 
+
       {/* 대문 */}
 
-    <Route exact path='/'>
-      <div>
+      <Route exact path='/'>
         <div>
-          <Carousel>
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src="img/1.jpg"
-                alt="First slide"
-              />
-              <Carousel.Caption>
-                <h3>First slide label</h3>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-              </Carousel.Caption>
-            </Carousel.Item>
+          <div>
+            <Carousel>
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  src="img/1.jpg"
+                  alt="First slide"
+                />
+                <Carousel.Caption>
+                  <h3>First slide label</h3>
+                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
 
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src="img/2.jpg"
-                alt="Second slide"
-              />
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  src="img/2.jpg"
+                  alt="Second slide"
+                />
 
-              <Carousel.Caption>
-                <h3>Second slide label</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </Carousel.Caption>
-            </Carousel.Item>
+                <Carousel.Caption>
+                  <h3>Second slide label</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
 
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src="img/3.jpg"
-                alt="Third slide"
-              />
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  src="img/3.jpg"
+                  alt="Third slide"
+                />
 
-              <Carousel.Caption>
-                <h3>Third slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-              </Carousel.Caption>
-            </Carousel.Item>
+                <Carousel.Caption>
+                  <h3>Third slide label</h3>
+                  <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
 
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src="img/4.jpg"
-                alt="Third slide"
-              />
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  src="img/4.jpg"
+                  alt="Third slide"
+                />
 
-              <Carousel.Caption>
-                <h3>Third slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-              </Carousel.Caption>
-            </Carousel.Item>
+                <Carousel.Caption>
+                  <h3>Third slide label</h3>
+                  <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
 
-          </Carousel>
+            </Carousel>
+          </div>
         </div>
-      </div>
-      
 
       {/* 상품 목록*/}
 
-      <div className="container">
-        <div className="row">
+        <div className="container">
+          <div className="row">
 
-          { /*
-          productData.map( (a,i)=>{ return <Maincard productData={a[i]} i={i} /> })
-          */ }
-              
+            { /*
+            productData.map( (a,i)=>{ return <Maincard productData={a[i]} i={i} /> })
+            */ }
+                
 
-          <div className="col-md-3">
-            <Card style={{ width: '18rem' }}>
-              <Card.Img variant="top" src='img/5.jpg' />
-              <Card.Body>
-                <Card.Title>{productData[0].name}</Card.Title>
-                <Card.Text>
-                  {productData[0].cost} 원
-                </Card.Text>
-                <Link to='/detail/01'>
-                  <Button variant="primary">Specific</Button>
-                </Link>
-              </Card.Body>
-            </Card>
-          </div>
+            <div className="col-md-3">
+              <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src='img/5.jpg' />
+                <Card.Body>
+                  <Card.Title>{productData[0].name}</Card.Title>
+                  <Card.Text>
+                    {productData[0].cost} 원
+                  </Card.Text>
+                  <Link to='/detail/01'>
+                    <Button variant="primary">Specific</Button>
+                  </Link>
+                </Card.Body>
+              </Card>
+            </div>
 
-          <div className="col-md-3">
-            <Card style={{ width: '18rem' }}>
-              <Card.Img variant="top" src='img/6.jpg' />
-              <Card.Body>
-                <Card.Title>{productData[1].name}</Card.Title>
-                <Card.Text>
-                  {productData[1].cost}
-                </Card.Text>
-                <Link to='/detail/02'>
-                  <Button variant="primary">Specific</Button>
-                </Link>
-              </Card.Body>
-            </Card>
-          </div>
-          <div className="col-md-3">
-            <Card style={{ width: '18rem' }}>
-              <Card.Img variant="top" src='img/7.jpg' />
-              <Card.Body>
-                <Card.Title>{productData[2].name}</Card.Title>
-                <Card.Text>
-                  {productData[2].cost}
-                </Card.Text>
-                <Link to='/detail/03'>
-                  <Button variant="primary">Specific</Button>
-                </Link>
-              </Card.Body>
-            </Card>
-          </div>
-          <div className="col-md-3">
-            <Card style={{ width: '18rem' }}>
-              <Card.Img variant="top" src='img/8.jpg' />
-              <Card.Body>
-                <Card.Title>{productData[3].name}</Card.Title>
-                <Card.Text>
-                  {productData[3].cost}
-                </Card.Text>
-                <Link to='/detail/04'>
-                  <Button variant="primary">Specific</Button>
-                </Link>
-              </Card.Body>
-            </Card>
-          </div>
-          
+            <div className="col-md-3">
+              <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src='img/6.jpg' />
+                <Card.Body>
+                  <Card.Title>{productData[1].name}</Card.Title>
+                  <Card.Text>
+                    {productData[1].cost} 원
+                  </Card.Text>
+                  <Link to='/detail/02'>
+                    <Button variant="primary">Specific</Button>
+                  </Link>
+                </Card.Body>
+              </Card>
+            </div>
+            <div className="col-md-3">
+              <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src='img/7.jpg' />
+                <Card.Body>
+                  <Card.Title>{productData[2].name}</Card.Title>
+                  <Card.Text>
+                    {productData[2].cost} 원
+                  </Card.Text>
+                  <Link to='/detail/03'>
+                    <Button variant="primary">Specific</Button>
+                  </Link>
+                </Card.Body>
+              </Card>
+            </div>
+            <div className="col-md-3">
+              <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src='img/8.jpg' />
+                <Card.Body>
+                  <Card.Title>{productData[3].name}</Card.Title>
+                  <Card.Text>
+                    {productData[3].cost} 원
+                  </Card.Text>
+                  <Link to='/detail/04'>
+                    <Button variant="primary">Specific</Button>
+                  </Link>
+                </Card.Body>
+              </Card>
+            </div>
+            
 
-          &nbsp;&nbsp;
+            &nbsp;&nbsp;
+          </div>
+          <button onClick={ ()=>{ axios.get('http://localhost:8081/api/product/join').then((result)=>{ changeProductData([...productData, ...result.data]) }).catch(()=>{  }) } }>Show more</button>
         </div>
-        <button onClick={ ()=>{ axios.get('http://localhost:8081/api/product/join').then((result)=>{ changeProductData([...productData, ...result.data]) }).catch(()=>{  }) } }>Show more</button>
-      </div>
-    </Route>
+      </Route>
 
       {/* 로그인 페이지 */}
 
@@ -352,7 +361,7 @@ function App() {
       <Cart productData={productData}></Cart>
     </Route>
 
-    { /* 카트 */}
+    { /* 검색기능 */}
 
     <Route exact path='/search-result'>
       <Search searchInput={searchInput}></Search>
