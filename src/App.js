@@ -10,6 +10,7 @@ import Cart from './Cart.js';
 import QnaDetail from './QnaDetail.js';
 import Qnadata from './Qnadata.js';
 import Userdata from './Userdata';
+import Search from './Search.js'
 
 
 function App() {
@@ -31,9 +32,8 @@ function App() {
   useEffect(()=>{axios.get('http://localhost:8080/api/product/findAll')
                   .then(({ data })=>{ 
                     changeProductData(data) 
-                  
                   })
-                    .catch()},[]);
+                  .catch()},[]);
 
   return (
     <div className="App">
@@ -50,25 +50,27 @@ function App() {
             navbarScroll
           >
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/detail/1">detail_temp</Nav.Link>
+            <Nav.Link href="/search-result">search_temp</Nav.Link>
             <NavDropdown title="Link" id="navbarScrollingDropdown">
               <NavDropdown.Item href="/my-cart">Cart_temp</NavDropdown.Item>
               <NavDropdown.Item href="/blog">Blog</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/my-account">My Account</NavDropdown.Item>
+              <NavDropdown.Item href="/my-account" >My Account</NavDropdown.Item>
             </NavDropdown>
           </Nav>
           &nbsp;
           &nbsp;
          
-          <Form className="d-flex" onChange={(e)=>{changesearchInput(`${e.target.value}`)}} searchInput={searchInput}>
+          <Form className="d-flex" onChange={(e)=>{changesearchInput(`${e.target.value}`)}}>
             <FormControl
               type="search"
               placeholder="Search"
               className="mr-2"
               aria-label="Search"
             />
-            <Button variant="outline-success">Search</Button>
+            <Link to='/search-result'>
+              <Button variant="outline-success">Search</Button>
+            </Link>
           </Form>
 
           <Nav>
@@ -348,6 +350,12 @@ function App() {
 
     <Route exact path='/my-cart'>
       <Cart productData={productData}></Cart>
+    </Route>
+
+    { /* 카트 */}
+
+    <Route exact path='/search-result'>
+      <Search searchInput={searchInput}></Search>
     </Route>
 
 
