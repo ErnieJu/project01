@@ -3,6 +3,7 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import { Tab, Tabs, Form, Button, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
+import RvsData from './RvsData';
 
 
 function Detail(props){
@@ -11,17 +12,23 @@ function Detail(props){
   let detailProduct = props.productData.find(function(product){
     return(product.id == id -1)
   });
+  
 
   let num = detailProduct.id;
+  let qnaData = props.qnaData;
   let [title, changeTitle] = useState('');
   let [content, changeContent] = useState('');
   let [modal, changeModal] = useState(false);
-  let qnaData = props.qnaData;
+  let [rvsData, changervsData] = useState(RvsData);
+  let detailRvs = rvsData.find(function(result){
+    return(result.id == id -1)
+  });
+
 
   const [qnas, setQnas] = useState(qnaData.slice(0,50));
   const [pageNumber, setPageNumber] = useState(0);
 
-  const qnasPerPage = 5;
+  const qnasPerPage = 10;
   const qnaVisit = pageNumber * qnasPerPage;
 
   const showQna = qnas
@@ -45,6 +52,36 @@ function Detail(props){
     const pageCount = Math.ceil(qnas.length / qnasPerPage);
     const changePage = ({selected}) => {
       setPageNumber(selected)
+    };
+    
+  const [rvs, setRvs] = useState(rvsData.slice(0,50));
+  const [rvspageNumber, setrvsPageNumber] = useState(0);
+
+  const rvsPerPage = 10;
+  const rvsVisit = rvspageNumber * rvsPerPage;
+
+  const showRvs = rvs
+  .slice(rvsVisit, rvsVisit + rvsPerPage)
+  .map((rvs) => {
+    return (
+      <Container rvsData={rvsData} detailRvs={detailRvs}>
+        <Link to={('/qna-specific/' + rvs.id)} className='noUnderline' rvsNum={rvs}>
+          <Row onClick={ ()=>{  } } className='qnabox'>
+            <Col>{rvs.id}</Col>
+            <Col xs={6}>{rvs.title}</Col>
+            <Col>{rvs.userUniqueId}</Col>
+            <Col>{rvs.content}</Col>
+            <Col xs={1}>{rvs.viewCount}</Col>
+            <Col xs={1}>{rvs.rating}/5</Col>
+          </Row>
+        </Link>
+      </Container>
+      );
+    });
+
+    const pageCounts = Math.ceil(rvs.length / rvsPerPage);
+    const changePages = ({selected}) => {
+      setrvsPageNumber(selected)
     };
 
     return (
@@ -113,10 +150,31 @@ function Detail(props){
             />
           </Tab>
           <Tab eventKey="contact" title="Review">
-            <div>{/* 제목 */}</div>
-            <h1>{/* 내용 */}</h1>
-            <p>{/* 작성자, 날짜 */}</p>
-            <p>준비중입니다.</p>
+            <Container className='qnaList'>
+              <Row className='qnacategory'>
+                <Col>글번호</Col>
+                <Col xs={6}>글제목</Col>
+                <Col>글쓴놈</Col>
+                <Col>시간</Col>
+                <Col xs={1}>조회수</Col>
+                <Col xs={1}>평점</Col>
+              </Row>
+            </Container>
+            {showRvs}
+            <h1></h1>
+            &nbsp;
+            <p></p>
+            &nbsp;
+            <ReactPaginate
+              previousLabel={"<"}
+              nextLabel={">"}
+              pageCount={pageCounts}
+              onPageChange={changePages}
+              containerClassName={"paginationButtons"}
+              previousLinkClassName={"PreviousButton"}
+              nextLinkClassName={"nextButton"}
+              activeClassName={"activeButton"}
+            />
           </Tab>
         </Tabs>
 
