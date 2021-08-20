@@ -45,7 +45,7 @@ function Cart(props) {
                 <Col> 
                     <Button onClick={ ()=>{ history.push('/') } }>결제하기</Button>
                     &nbsp;
-                    <Button>뒤로가기</Button></Col>
+                    <Button onClick={ ()=>{ history.goBack() } }>뒤로가기</Button></Col>
             </Row>
         </Container>
     )

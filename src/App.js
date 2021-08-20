@@ -11,6 +11,8 @@ import QnaDetail from './QnaDetail.js';
 import Qnadata from './Qnadata.js';
 import Userdata from './Userdata';
 import SearchRst from './SearchRst.js'
+import RvsDetail from './RvsDetail';
+import RvsData from './RvsData';
 
 
 function App() {
@@ -24,6 +26,7 @@ function App() {
   let [searchInput, changesearchInput] = useState('');
   let [productData, changeProductData] = useState(Data);
   let [qnaData, changeqnaData] = useState(Qnadata);
+  let [rvsData, changervsData] = useState(RvsData);
 
   
   
@@ -367,7 +370,11 @@ function App() {
       <SearchRst searchInput={searchInput}></SearchRst>
     </Route>
 
+    {/* 리뷰 상세설명 페이지 */}
 
+    <Route path={'/rvs-specific/:id'}>
+      <RvsDetail productData={productData} rvsData={rvsData}></RvsDetail>
+    </Route>
 
     
 

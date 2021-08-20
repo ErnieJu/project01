@@ -10,6 +10,7 @@ function Account(props) {
   let [orderInfo, changeorderInfo] = useState(false);
   let [info, changeInfo] = useState(false);
   let [addressInput, changeaddressInput] = useState(false);
+  let [purchaserec, changePurchaserec] = useState(false);
   let [userUniqueId, changeuserUniqueId] = useState('');
   let [name, changeName] = useState('');
   let [password, changePassword] = useState('');
@@ -19,6 +20,7 @@ function Account(props) {
   let [address1, changeaddress1] = useState();
   let [address2, changeaddress2] = useState('');
   let [address3, changeaddress3] = useState('');
+  
 
 
   const handleComplete = (data) => {
@@ -48,24 +50,27 @@ function Account(props) {
           <Col xs={2}>
             <h5>메뉴를 선택해주세요</h5>
             <ListGroup className="sideBar">
-              <Button className="sideBars" onClick={ ()=>{ changeuserInfo(true); changeorderInfo(false); changeInfo(false); changeaddressInput(false); } } >
+              <Button className="sideBars" onClick={ ()=>{ changeuserInfo(true); changeorderInfo(false); changeInfo(false); changeaddressInput(false); changePurchaserec(false); } } >
                 회원 정보 수정
               </Button>
-              <Button className="sideBars" onClick={ ()=>{ changeuserInfo(false); changeorderInfo(true); changeInfo(false); changeaddressInput(false); } }>
+              <Button className="sideBars" onClick={ ()=>{ changeuserInfo(false); changeorderInfo(true); changeInfo(false); changeaddressInput(false); changePurchaserec(false); } }>
                 비밀 번호 변경
               </Button>
-              <Button className="sideBars" onClick={ ()=>{ changeuserInfo(false); changeorderInfo(false); changeInfo(true); changeaddressInput(false); } }>
+              <Button className="sideBars" onClick={ ()=>{ changeuserInfo(false); changeorderInfo(false); changeInfo(true); changeaddressInput(false); changePurchaserec(false); } }>
                 이메일 변경
               </Button>
-              <Button className="sideBars" onClick={ ()=>{ changeuserInfo(false); changeorderInfo(false); changeInfo(false); changeaddressInput(true); } }>
+              <Button className="sideBars" onClick={ ()=>{ changeuserInfo(false); changeorderInfo(false); changeInfo(false); changeaddressInput(true); changePurchaserec(false); } }>
                 주소지 입력
+              </Button>
+              <Button className="sideBars" onClick={ ()=>{ changeuserInfo(false); changeorderInfo(false); changeInfo(false); changeaddressInput(false); changePurchaserec(true); } }>
+                구매 내역
               </Button>
               <Button className="sideBars" onClick={ ()=>{ history.push('/my-cart') } }>
                 장바구니
               </Button>
             </ListGroup>
           </Col>
-          <Col xs={6}>
+          <Col xs={10}>
           {
             userInfo === true
             ? <Modal1 userUniqueId={userUniqueId} changeuserUniqueId={changeuserUniqueId} name={name} changeName={changeName} changeuserInfo={changeuserInfo}></Modal1>
@@ -113,6 +118,11 @@ function Account(props) {
                 }); changeaddressInput(false);
               }}>저장</Button>
             </h4>
+            : null
+          }
+          {
+            purchaserec === true
+            ? <Modal4 changePurchaserec={changePurchaserec}></Modal4>
             : null
           }
           </Col>
@@ -244,6 +254,33 @@ function Modal3(props) {
           console.log(props.userEmail);
         }); props.changeInfo(false);
       }}>저장</Button>
+    </h4>
+  )
+}
+
+function Modal4(props) {
+
+  return (
+    <h4 className='qnaInput'>
+      <Form>
+        <p className='qnaCreate'>
+          구매 내역
+        </p>
+        <div className='littleAlert'>
+          <p className='qnaAlert'>
+            구매 내역을 확인할 수 있습니다.
+          </p>
+        </div>
+          <Container className='qnaList'>
+            <Row className='qnacategory'>
+              <Col xs={1}>id</Col>
+              <Col>구매일</Col>
+              <Col xs={6}>제품명</Col>
+              <Col></Col>
+            </Row>
+          </Container>
+      </Form>
+      <Button onClick={()=>{ props.changePurchaserec(false); } }>저장</Button>
     </h4>
   )
 }

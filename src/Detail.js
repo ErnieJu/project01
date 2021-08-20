@@ -65,7 +65,7 @@ function Detail(props){
   .map((rvs) => {
     return (
       <Container rvsData={rvsData} detailRvs={detailRvs}>
-        <Link to={('/qna-specific/' + rvs.id)} className='noUnderline' rvsNum={rvs}>
+        <Link to={('/rvs-specific/' + rvs.id)} className='noUnderline' rvsNum={rvs}>
           <Row onClick={ ()=>{  } } className='qnabox'>
             <Col>{rvs.id}</Col>
             <Col xs={6}>{rvs.title}</Col>
