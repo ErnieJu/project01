@@ -258,6 +258,7 @@
 
 .cart_middle {
   border-style: solid;
+  border-width: 1px;
 }
 
 .cart_back {
