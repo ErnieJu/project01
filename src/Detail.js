@@ -99,7 +99,17 @@ function Detail(props){
             &nbsp;
             <button className="btn btn-danger">바로주문</button> 
             &nbsp;
-            <button className="btn btn-danger">장바구니</button> 
+            <button className="btn btn-danger" onClick={ ()=>{ 
+              axios.post('/user', {
+              id: props.id,
+            })
+            .then(function (response) {
+              console.log(props.id);
+            })
+            .catch(function (error) {
+              console.log(props.id);
+            }); 
+            } }>장바구니</button> 
             &nbsp;
             <button className="btn btn-danger" onClick={ ()=>{ history.push('/') } }>뒤로</button>
           </div>
