@@ -5,12 +5,12 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import {connect} from 'react-redux';
 import CartData from './CartData.js';
 import axios from 'axios';
+import ReactPaginate from 'react-paginate';
 
 
 
 function Cart(props) {
   let history = useHistory();
-  let product = useState(['']);
   let {id} = useParams();
   let [cartData, changecartData] = useState(CartData);
 
@@ -24,6 +24,35 @@ function Cart(props) {
   let detailPrdt = CartData.find(function(result){
     return(result.id == id -1)
   });
+
+
+  const [results, setResults] = useState(cartData.slice(0,50));
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const resultsPerPage = 5;
+  const resultsVisit = pageNumber * resultsPerPage;
+
+  const showCart = results
+  .slice(resultsVisit, resultsVisit + resultsPerPage)
+  .map((results) => {
+    return (
+      <Container results={results} detailPrdt={detailPrdt}>
+        <Link to={('/detail/' + (results.id +1))} className='noUnderline'>
+          <Row onClick={ ()=>{  } } className='qnabox'>
+            <Col xs={2} className="text-Left">{results.name}</Col>
+            <Col xs={8} className="text-Left">{results.description}</Col>
+            <Col xs={2} className="text-Right">{results.cost} 원</Col>
+          </Row>
+        </Link>
+      </Container>
+    );
+  });
+
+  const pageCount = Math.ceil(results.length / resultsPerPage);
+  const changePage = ({selected}) => {
+    setPageNumber(selected)
+  };
+
 
 
   return(
@@ -44,19 +73,22 @@ function Cart(props) {
         </Row>
       </Container>
 
-        <Row>
-          <Col xs={2} >
-            left
-          </Col>
-          <Col xs={8} className='cart_middle'>
-             <Col>
-             {cartData[2].name}
-             </Col>
-                
-          </Col>
-          <Col xs={2}>
-            right
-          </Col>
+        <Row className='detailQnA'>
+          &nbsp;
+          {showCart}
+          &nbsp;
+          <Container className="pleaseCenter">
+            <ReactPaginate
+              previousLabel={"<"}
+              nextLabel={">"}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName={"paginationButtons"}
+              previousLinkClassName={"PreviousButton"}
+              nextLinkClassName={"nextButton"}
+              activeClassName={"activeButton"}
+            />
+          </Container>
         </Row>
       <Row>
         <Col> 

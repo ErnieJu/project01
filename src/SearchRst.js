@@ -76,16 +76,18 @@ function SearchRst(props){
     &nbsp;
     {showQna}
     &nbsp;
-    <ReactPaginate
-      previousLabel={"<"}
-      nextLabel={">"}
-      pageCount={pageCount}
-      onPageChange={changePage}
-      containerClassName={"paginationButtons"}
-      previousLinkClassName={"PreviousButton"}
-      nextLinkClassName={"nextButton"}
-      activeClassName={"activeButton"}
-    />
+    <Container className="pleaseCenter">
+      <ReactPaginate
+        previousLabel={"<"}
+        nextLabel={">"}
+        pageCount={pageCount}
+        onPageChange={changePage}
+        containerClassName={"paginationButtons"}
+        previousLinkClassName={"PreviousButton"}
+        nextLinkClassName={"nextButton"}
+        activeClassName={"activeButton"}
+      />
+    </Container>
 
   </div>
   )
