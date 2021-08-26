@@ -326,8 +326,8 @@ function App() {
             <Form.Control type="name" placeholder="Enter your Name" onChange={ (e)=>{ changename(`${e.target.value}`) } } name={name}/>
           </Form.Group>
 
-          <Button variant="primary" type="submit" onClick={()=>{ history.push('/') 
-            {/*
+          <Button variant="primary" type="submit" onClick={()=>{ history.push('/'); 
+            
               axios.post('/user', {
               username: username,
               password: password,
@@ -346,8 +346,7 @@ function App() {
               console.log(email);
               console.log(name);
             });
-          */}
-        }}>
+          }}>
             Submit
           </Button>
           &nbsp; &nbsp;

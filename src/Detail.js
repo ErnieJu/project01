@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { Tab, Tabs, Form, Button, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
@@ -23,6 +23,15 @@ function Detail(props){
   let detailRvs = rvsData.find(function(result){
     return(result.id == id -1)
   });
+  let [trueQnaData, changetrueQnaData] = useState('');
+  //밑에 useEffect로 qna 데이터 땡겨오기
+
+  
+  useEffect(()=>{axios.get('http://localhost:8080/api/product/findAll/'+ num)
+                  .then(({ data })=>{ 
+                    changetrueQnaData(data) 
+                  })
+                  .catch()},[]);
 
 
   const [qnas, setQnas] = useState(qnaData.slice(0,50));
